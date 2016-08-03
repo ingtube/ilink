@@ -3,7 +3,7 @@ ilink
 
 Go 写的 iOS universal links 转发服务
 
-Universal Links 是 iOS 9 提供的应用间跳转服务，允许你从一个 app 跳转到另一个 app 的某个页面。关于 Universal Links 的实现细节，见 Apple [官方文档](https://developer.apple.com/library/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html)。
+Universal Links 是 iOS 9 提供的应用间跳转机制，允许你从一个 app 跳转到另一个 app 的某个页面。关于 Universal Links 的实现细节，见 Apple [官方文档](https://developer.apple.com/library/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html)。
 
 ilink 实现了 Universal Links 的服务端：
 

@@ -3,8 +3,12 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"io"
 	"log"
 	"net/http"
+	"os"
+
+	"github.com/gorilla/handlers"
 )
 
 var (
@@ -14,7 +18,7 @@ var (
 	domainCertificateFile = flag.String("domain_certificate_file", "", "域名 HTTPS 证书文件")
 	domainKeyFile         = flag.String("domain_key_file", "", "域名 HTTPS key 文件")
 	renewCertificate      = flag.Bool("renew_certificate", false, "是否更新证书")
-	appID                 = flag.String("appid", "", "你的 app 的 application-identifier")
+	appID                 = flag.String("appid", "", "你的 app 的 application-identifier，通常是 <team id>.<bundle id>")
 )
 
 func main() {
@@ -41,9 +45,11 @@ func main() {
 	}
 
 	// 启动服务
-	http.HandleFunc("/.well-known/apple-app-site-association", ULinkService)
+	r := http.NewServeMux()
+	r.Handle("/.well-known/apple-app-site-association", handlers.CombinedLoggingHandler(os.Stdout, http.HandlerFunc(ULinkService)))
+
 	log.Print("启动 HTTPS 服务器")
-	log.Fatal(http.ListenAndServeTLS(*host, *domainCertificateFile, *domainKeyFile, nil))
+	log.Fatal(http.ListenAndServeTLS(*host, *domainCertificateFile, *domainKeyFile, handlers.CompressHandler(r)))
 }
 
 func ULinkService(w http.ResponseWriter, req *http.Request) {
@@ -63,7 +69,7 @@ func ULinkService(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	w.Write(fileStr)
+	io.WriteString(w, string(fileStr))
 }
 
 type SiteAssociationFile struct {

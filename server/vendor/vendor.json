@@ -1,0 +1,55 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "6/9VW/AyJyjRXLu+nbhqGYvOO2k=",
+			"path": "github.com/gorilla/handlers",
+			"revision": "801d6e3b008914ee888c9ab9b1b379b9a56fbf44",
+			"revisionTime": "2016-07-21T04:34:55Z"
+		},
+		{
+			"checksumSHA1": "Y89CHl2URaBbobeyCOr4kzbLwYE=",
+			"path": "github.com/miekg/dns",
+			"revision": "5d001d020961ae1c184f9f8152fdc73810481677",
+			"revisionTime": "2016-06-14T16:21:01Z"
+		},
+		{
+			"checksumSHA1": "CnHIcYFQuSFsCE6T9rhx2l8n7q4=",
+			"path": "github.com/xenolf/lego/acme",
+			"revision": "b12ce5e73146e74520c426895394b92dffeb3a25",
+			"revisionTime": "2016-07-21T01:40:32Z"
+		},
+		{
+			"checksumSHA1": "lHxT2HoDb53IQpOr4q7em28PKGY=",
+			"path": "golang.org/x/crypto/ocsp",
+			"revision": "b6789ab629056511030d652d851e7dc10c9e9c9e",
+			"revisionTime": "2016-05-04T15:20:23Z"
+		},
+		{
+			"checksumSHA1": "uR2JExVr6/6ZrBtvm7XguieokNI=",
+			"path": "golang.org/x/net/publicsuffix",
+			"revision": "ef00b378c73f107bf44d5c9b69875255ce89b79a",
+			"revisionTime": "2016-05-15T03:16:23Z"
+		},
+		{
+			"checksumSHA1": "LKz+OTCQIjRCae1xBcDR7Pa+DU0=",
+			"path": "gopkg.in/square/go-jose.v1",
+			"revision": "e3f973b66b91445ec816dd7411ad1b6495a5a2fc",
+			"revisionTime": "2016-05-02T21:53:29Z"
+		},
+		{
+			"checksumSHA1": "NXpzIEnfFqipFF9V1rDUGdjU5FI=",
+			"path": "gopkg.in/square/go-jose.v1/cipher",
+			"revision": "e3f973b66b91445ec816dd7411ad1b6495a5a2fc",
+			"revisionTime": "2016-05-02T21:53:29Z"
+		},
+		{
+			"checksumSHA1": "UYvcpB3og7YJHbRu4feZFxXAU/A=",
+			"path": "gopkg.in/square/go-jose.v1/json",
+			"revision": "e3f973b66b91445ec816dd7411ad1b6495a5a2fc",
+			"revisionTime": "2016-05-02T21:53:29Z"
+		}
+	],
+	"rootPath": "github.com/yingtu/universal_link_server/server"
+}

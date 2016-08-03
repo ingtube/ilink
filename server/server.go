@@ -19,6 +19,7 @@ var (
 	domainKeyFile         = flag.String("domain_key_file", "", "域名 HTTPS key 文件")
 	renewCertificate      = flag.Bool("renew_certificate", false, "是否更新证书")
 	appID                 = flag.String("appid", "", "你的 app 的 application-identifier，通常是 <team id>.<bundle id>")
+	redirectURL           = flag.String("redirect_url", "", "当用户没有安装 app，跳转到这个网址")
 )
 
 func main() {
@@ -27,6 +28,9 @@ func main() {
 	// 检查 flag 正确性
 	if *appID == "" {
 		log.Fatal("--appID 参数不能为空")
+	}
+	if *redirectURL == "" {
+		log.Fatal("--redirect_url 参数不能为空")
 	}
 
 	// 更新证书
@@ -46,9 +50,11 @@ func main() {
 
 	// 启动服务
 	r := http.NewServeMux()
+	// 用户请求 app-site 关联文件时，返回 json 配置
 	r.Handle("/.well-known/apple-app-site-association", handlers.CombinedLoggingHandler(os.Stdout, http.HandlerFunc(ULinkService)))
 	r.Handle("/apple-app-site-association", handlers.CombinedLoggingHandler(os.Stdout, http.HandlerFunc(ULinkService)))
-
+	// 否则（当用户手机上没有安装该 app），跳转到指定页面（通常是 app store 页面）
+	r.Handle("/", handlers.CombinedLoggingHandler(os.Stdout, http.HandlerFunc(RedirectService)))
 	log.Print("启动 HTTPS 服务器")
 	log.Fatal(http.ListenAndServeTLS(*host, *domainCertificateFile, *domainKeyFile, handlers.CompressHandler(r)))
 }
@@ -85,4 +91,8 @@ type Applinks struct {
 type Detail struct {
 	AppID string   `json:"appID"`
 	Paths []string `json:"paths"`
+}
+
+func RedirectService(w http.ResponseWriter, req *http.Request) {
+	http.Redirect(w, req, *redirectURL, 301)
 }

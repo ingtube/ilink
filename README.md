@@ -49,4 +49,3 @@ go build
 > --redirect_url：当用户没有安装 app 时，会访问你的域名，然后被重定向到这个域名，请设置为你的 app 的 app store 页面地址
 
 > --renew_certificate：当带这个参数时，会从 Let's Encrypt 获得证书和钥匙，并写入 --domain_certificate_file 和 --domain_key_file 两个文件。当不带这个参数时，只从这两个文件读入配置。注意 Let's Encrypt 的证书每 90 天需要更新一次，但是，请不要频繁 renew certificate，每个星期最多 renew 5 次（Let's Encrypt 的限制）。
-```

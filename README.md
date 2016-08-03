@@ -7,9 +7,11 @@ Universal Links 是 iOS 9 提供的应用间跳转服务，允许你从一个 ap
 
 ilink 实现了 Universal Links 的服务端：
 
-1、当用户安装了该 app 时，跳转到 app 中详情页
+1、自动获得 HTTPS 证书，一键启动你的 HTTPS 网站
 
-2、当用户没有安装 app 时，跳转到 app store 的安装页
+2、点击 universal link，当用户安装了该 app 时，跳转到 app 中详情页
+
+3、点击 universal link，当用户没有安装 app 时，跳转到 app store 的安装页
 
 ## 编译
 

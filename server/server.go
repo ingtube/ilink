@@ -47,6 +47,7 @@ func main() {
 	// 启动服务
 	r := http.NewServeMux()
 	r.Handle("/.well-known/apple-app-site-association", handlers.CombinedLoggingHandler(os.Stdout, http.HandlerFunc(ULinkService)))
+	r.Handle("/apple-app-site-association", handlers.CombinedLoggingHandler(os.Stdout, http.HandlerFunc(ULinkService)))
 
 	log.Print("启动 HTTPS 服务器")
 	log.Fatal(http.ListenAndServeTLS(*host, *domainCertificateFile, *domainKeyFile, handlers.CompressHandler(r)))

@@ -6,7 +6,9 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
+	"strings"
 
 	"github.com/gorilla/handlers"
 )
@@ -94,5 +96,39 @@ type Detail struct {
 }
 
 func RedirectService(w http.ResponseWriter, req *http.Request) {
-	http.Redirect(w, req, *redirectURL, 301)
+	// 检测是否是从其他页面跳转而来（非直接打开）
+	hasReferer := (req.Referer() != "")
+
+	// 提取 redirection 参数
+	query := req.URL.Query()
+	redirection := query.Get("redirection")
+	var err error
+	redirection, err = url.QueryUnescape(redirection)
+	if err != nil {
+		log.Printf("redirection 解码错误 %s", err)
+		return
+	}
+
+	// 判断是否为微信打开
+	inWechat := strings.Contains(strings.ToLower(req.UserAgent()), "micromessenger")
+
+	// 当不在微信里打开，跳转到 --redirect_url
+	if !inWechat {
+		log.Printf("跳转到 %s", *redirectURL)
+		http.Redirect(w, req, *redirectURL, 301)
+		return
+	}
+
+	// 当在微信里打开，且 refer 不为空时，不做跳转
+	if inWechat && hasReferer {
+		log.Printf("不跳转")
+		return
+	}
+
+	// 当在微信里打开，且 refer 为空，且 redirection 不为空时，跳到 redirection 地址
+	if inWechat && !hasReferer && redirection != "" {
+		log.Printf("跳转到 %s", redirection)
+		http.Redirect(w, req, redirection, 301)
+		return
+	}
 }

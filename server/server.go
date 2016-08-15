@@ -58,7 +58,7 @@ func main() {
 	// 否则（当用户手机上没有安装该 app），跳转到指定页面（通常是 app store 页面）
 	r.Handle("/", handlers.CombinedLoggingHandler(os.Stdout, http.HandlerFunc(RedirectService)))
 	log.Print("启动 HTTPS 服务器")
-	log.Fatal(http.ListenAndServeTLS(*host, *domainCertificateFile, *domainKeyFile, handlers.CompressHandler(r)))
+	log.Fatal(http.ListenAndServeTLS(*host, *domainCertificateFile, *domainKeyFile, r))
 }
 
 func ULinkService(w http.ResponseWriter, req *http.Request) {

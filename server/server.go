@@ -22,7 +22,10 @@ var (
 	renewCertificate      = flag.Bool("renew_certificate", false, "是否更新证书")
 	appID                 = flag.String("appid", "", "你的 app 的 application-identifier，通常是 <team id>.<bundle id>")
 	redirectURL           = flag.String("redirect_url", "", "当用户没有安装 app，跳转到这个网址")
+	staticFile            = flag.String("static_file", "", "")
 )
+
+var staticHandler http.Handler
 
 func main() {
 	flag.Parse()
@@ -49,6 +52,7 @@ func main() {
 			log.Fatal(err)
 		}
 	}
+	staticHandler = http.FileServer(http.Dir(*staticFile))
 
 	// 启动服务
 	r := http.NewServeMux()
@@ -96,6 +100,9 @@ type Detail struct {
 }
 
 func RedirectService(w http.ResponseWriter, req *http.Request) {
+	staticHandler.ServeHTTP(w, req)
+	return
+
 	// 检测是否是从其他页面跳转而来（非直接打开）
 	hasReferer := (req.Referer() != "")
 

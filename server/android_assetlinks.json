@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.ingtube.yingtu",
+    "sha256_cert_fingerprints":
+    ["F9:F2:70:17:1F:18:12:43:AF:97:65:15:1E:AC:9F:E0:82:9B:36:8F:C4:03:43:75:07:90:E8:F0:2F:DA:38:6A"]
+  }
+}]

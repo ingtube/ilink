@@ -21,6 +21,7 @@ func main() {
 
 	log.Print("启动 HTTPS 服务器")
 	http.HandleFunc("/.well-known/apple-app-site-association", ulinkService)
+	http.HandleFunc("/.well-known/assetlinks.json", androidServer)
 	http.HandleFunc("/apple-app-site-association", ulinkService)
 	http.HandleFunc("/", staticServer)
 	//log.Fatal(http.ListenAndServeTLS(*host, *domainCertificateFile, *domainKeyFile, nil))
@@ -31,6 +32,12 @@ func staticServer(w http.ResponseWriter, req *http.Request) {
 	http.ServeFile(w, req, *staticFile)
 	return
 }
+
+func androidServer(w http.ResponseWriter, req *http.Request) {
+	http.ServeFile(w, req, "android_assertlinks.json")
+	return
+}
+
 
 type SiteAssociationFile struct {
 	Applinks Applinks `json:"applinks"`

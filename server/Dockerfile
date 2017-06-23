@@ -5,3 +5,4 @@ RUN mkdir -p /ingtube/ulink/bin
 RUN mkdir -p /ingtube/ulink/html
 ADD ulink_server /ingtube/ulink/bin/ulink_server
 ADD index.html /ingtube/ulink/html/index.html
+ADD android_assetlinks.json /ingtube/ulink/asset/android_assetlinks.json

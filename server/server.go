@@ -9,10 +9,11 @@ import (
 )
 
 var (
-	host = flag.String("host", ":443", "HTTPS 服务器 <ip>:<port>")
+	host = flag.String("host", ":9999", "HTTPS 服务器 <ip>:<port>")
 	//domainCertificateFile = flag.String("domain_certificate_file", "", "域名 HTTPS 证书文件")
 	//domainKeyFile         = flag.String("domain_key_file", "", "域名 HTTPS key 文件")
 	staticFile = flag.String("static_file", "", "")
+	androidFile = flag.String("android_asset_file", "", "")
 	appID      = flag.String("appid", "", "你的 app 的 application-identifier，通常是 <team id>.<bundle id>")
 )
 
@@ -34,7 +35,7 @@ func staticServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func androidServer(w http.ResponseWriter, req *http.Request) {
-	http.ServeFile(w, req, "android_assertlinks.json")
+	http.ServeFile(w, req, *androidFile)
 	return
 }
 
